@@ -1,72 +1,93 @@
-# Next.js Appointments Application
+# NextAppointments
 
-A modern web application built with Next.js for managing appointments and scheduling.
+**Open Source Online Appointment Scheduling**
 
-## Features
+NextAppointments is a powerful, flexible, and free open source scheduling solution built with **Next.js** and **TypeScript**. Perfect for medical offices, salons, service-based businesses, and more. It offers customizable booking, client communication tools, and secure infrastructure.
 
-- Modern UI with Next.js and React
-- TypeScript for type safety
-- Responsive design
-- Appointment management system
+![Screenshot](screenshot.png)
 
-## Getting Started
+## 🚀 Features
+
+- **Smart Scheduling**  
+  Customizable availability, buffer times, and booking rules.
+
+- **Client Communication**  
+  Automated reminders, confirmations, and follow-ups via email and SMS.
+
+- **Secure & Reliable**  
+  Built with security in mind — regular backups and data protection.
+
+- **Customizable Branding**  
+  Add your logo, brand colors, and custom domain — all for free.
+
+- **Modern Tech Stack**  
+  Built using Next.js, React, and TypeScript for modern, fast, scalable development.
+
+- **Responsive Design**  
+  Fully optimized for desktop, tablet, and mobile.
+
+## 🔧 Premium Features
+
+Take your business to the next level with optional upgrades:
+
+### Custom Integrations
+- CRM Integration (Salesforce, HubSpot)
+- Payment Processing (Stripe, PayPal)
+- Calendar Sync (Google, Outlook)
+
+### Managed Hosting
+- Enterprise-grade infrastructure with unlimited users
+- 24/7 technical support
+- Automatic backups & updates
+
+
+## 🎥 Demo
+
+See how easy it is to schedule, manage, and grow your business:
+
+[![Watch the demo](https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+
+---
+
+## 🛠 Tech Stack
+
+- **Frontend**: [Next.js](https://nextjs.org/), React, TypeScript  
+- **Backend**: Node.js / Express (configurable)  
+- **Database**: PostgreSQL / MySQL / MongoDB  
+- **Deployment**: Vercel, Docker, or custom hosting
+
+---
+
+## 📦 Getting Started
 
 ### Prerequisites
 
 - Node.js 18.x or later
-- npm or yarn package manager
+- npm or yarn
+
+### Project Structure
+
+nextappointments/
+├── app/              # App router pages and logic
+├── components/       # Shared UI components
+├── public/           # Static assets
+├── styles/           # Global styles
+└── types/            # TypeScript definitions
 
 ### Installation
 
-1. Clone the repository:
 ```bash
-git clone [your-repository-url]
+git clone https://github.com/your-username/nextappointments.git
 cd nextappointments
+npm install   # or yarn install
+npm run dev   # or yarn dev
 ```
 
-2. Install dependencies:
-```bash
-npm install
-# or
-yarn install
+### Development Commands
+```javascript
+npm run dev     # Start development server
+npm run build   # Build for production
+npm run start   # Start production server
+npm run lint    # Run ESLint
+npm run test    # Run tests
 ```
-
-3. Run the development server:
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## Development
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-- `npm run test` - Run tests
-
-## Project Structure
-
-```
-nextappointments/
-├── app/              # App router pages and components
-├── components/       # Reusable components
-├── public/          # Static assets
-├── styles/          # Global styles
-└── types/           # TypeScript type definitions
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details. 
