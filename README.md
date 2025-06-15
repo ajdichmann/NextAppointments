@@ -4,7 +4,7 @@
 
 NextAppointments is a powerful, flexible, and free open source scheduling solution built with **Next.js** and **TypeScript**. Perfect for medical offices, salons, service-based businesses, and more. It offers customizable booking, client communication tools, and secure infrastructure.
 
-![Screenshot](screenshot.png)
+![Screenshot](https://nextappointments.net/images/appointment-calendar-demo.png)
 
 ## 🚀 Features
 
@@ -45,7 +45,7 @@ Take your business to the next level with optional upgrades:
 
 See how easy it is to schedule, manage, and grow your business:
 
-[![Watch the demo](https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+[![Watch the demo](https://nextappointments.net/videos/demo.mp4)
 
 ---
 
@@ -67,13 +67,14 @@ See how easy it is to schedule, manage, and grow your business:
 
 ### Project Structure
 
+```markdown
 nextappointments/
 ├── app/              # App router pages and logic
 ├── components/       # Shared UI components
 ├── public/           # Static assets
 ├── styles/           # Global styles
 └── types/            # TypeScript definitions
-
+```
 ### Installation
 
 ```bash
