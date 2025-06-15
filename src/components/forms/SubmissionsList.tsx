@@ -75,9 +75,7 @@ export function SubmissionsList() {
               <div>
                 <p className="text-gray-500">Service Type</p>
                 <p className="text-gray-900 capitalize">
-                  {submission.serviceType === 'regenerative-medicine'
-                    ? 'Regenerative Medicine'
-                    : submission.serviceType.replace('-', ' ')}
+                  {submission.serviceType.replace('-', ' ')}
                 </p>
               </div>
               <div>

@@ -1,7 +1,38 @@
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { useState, useEffect } from 'react';
 import { Button } from '../common/Button';
 import { AppointmentSlot, Location } from '@/lib/types';
 import { LocationSelector } from './LocationSelector';
+
+const appointmentTimeSchema = z.object({
+  appointmentSlot: z.object({
+    id: z.string(),
+    startTime: z.string(),
+    endTime: z.string(),
+    providerName: z.string(),
+    location: z.string(),
+    locationId: z.string(),
+  }).nullable(),
+  location: z.object({
+    id: z.string(),
+    name: z.string(),
+    address: z.string(),
+    zipCode: z.string(),
+    lat: z.number().optional(),
+    lng: z.number().optional(),
+    phone: z.string(),
+  }).nullable(),
+}).refine((data) => data.appointmentSlot !== null, {
+  message: 'Please select an appointment time',
+  path: ['appointmentSlot'],
+}).refine((data) => data.location !== null, {
+  message: 'Please select a location',
+  path: ['location'],
+});
+
+type AppointmentTimeFormData = z.infer<typeof appointmentTimeSchema>;
 
 interface AppointmentTimeFormProps {
   onSubmit: (appointmentSlot: AppointmentSlot) => void;
@@ -48,8 +79,22 @@ const generateWeekSlots = (startDate: Date, locationId: string, locationName: st
 export function AppointmentTimeForm({ onSubmit, onBack }: AppointmentTimeFormProps) {
   const [startDate, setStartDate] = useState<string>(new Date().toISOString().split('T')[0]);
   const [weekSlots, setWeekSlots] = useState<{ [key: string]: AppointmentSlot[] }>({});
-  const [selectedSlot, setSelectedSlot] = useState<AppointmentSlot | null>(null);
-  const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
+
+  const {
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm<AppointmentTimeFormData>({
+    resolver: zodResolver(appointmentTimeSchema),
+    defaultValues: {
+      appointmentSlot: null,
+      location: null,
+    },
+  });
+
+  const selectedLocation = watch('location');
+  const selectedSlot = watch('appointmentSlot');
 
   useEffect(() => {
     if (startDate && selectedLocation) {
@@ -85,8 +130,18 @@ export function AppointmentTimeForm({ onSubmit, onBack }: AppointmentTimeFormPro
   };
 
   const handleLocationSelect = (location: Location) => {
-    setSelectedLocation(location);
-    setSelectedSlot(null);
+    setValue('location', location);
+    setValue('appointmentSlot', null);
+  };
+
+  const handleSlotSelect = (slot: AppointmentSlot) => {
+    setValue('appointmentSlot', slot);
+  };
+
+  const onSubmitForm = (data: AppointmentTimeFormData) => {
+    if (data.appointmentSlot) {
+      onSubmit(data.appointmentSlot);
+    }
   };
 
   // Helper to get the start of the current week (Sunday)
@@ -116,7 +171,7 @@ export function AppointmentTimeForm({ onSubmit, onBack }: AppointmentTimeFormPro
   };
 
   return (
-    <div className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmitForm)} className="space-y-6">
       <LocationSelector
         onLocationSelect={handleLocationSelect}
         selectedLocationId={selectedLocation?.id}
@@ -127,14 +182,14 @@ export function AppointmentTimeForm({ onSubmit, onBack }: AppointmentTimeFormPro
         <>
           <div className="flex items-center justify-between">
             {canGoToPreviousWeek() && (
-              <Button variant="outline" onClick={() => handleDateChange(-7)}>
+              <Button variant="outline" onClick={() => handleDateChange(-7)} type="button">
                 Previous Week
               </Button>
             )}
             <h2 className="text-lg font-medium">
               Week of {formatDate(startDate)}
             </h2>
-            <Button variant="outline" onClick={() => handleDateChange(7)}>
+            <Button variant="outline" onClick={() => handleDateChange(7)} type="button">
               Next Week
             </Button>
           </div>
@@ -168,7 +223,8 @@ export function AppointmentTimeForm({ onSubmit, onBack }: AppointmentTimeFormPro
                     return (
                       <button
                         key={slot.id}
-                        onClick={() => setSelectedSlot(slot)}
+                        type="button"
+                        onClick={() => handleSlotSelect(slot)}
                         className={`p-2 border rounded transition-colors duration-200 ${
                           selectedSlot?.id === slot.id
                             ? 'border-[#159A00] bg-[#159A00]/5'
@@ -188,20 +244,20 @@ export function AppointmentTimeForm({ onSubmit, onBack }: AppointmentTimeFormPro
               ))}
             </div>
           </div>
+          {errors.appointmentSlot && (
+            <p className="mt-2 text-sm text-red-600">{errors.appointmentSlot.message}</p>
+          )}
         </>
       )}
 
       <div className="flex justify-between mt-6">
-        <Button variant="outline" onClick={onBack}>
+        <Button variant="outline" onClick={onBack} type="button">
           Back
         </Button>
-        <Button
-          onClick={() => selectedSlot && onSubmit(selectedSlot)}
-          disabled={!selectedSlot}
-        >
+        <Button type="submit">
           Continue
         </Button>
       </div>
-    </div>
+    </form>
   );
 } 

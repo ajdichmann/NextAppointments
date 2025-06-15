@@ -14,7 +14,7 @@ export const CalendarIntegration = ({ appointmentSlot, location, patientInfo }: 
     const startTime = new Date(appointmentSlot.startTime);
     const endTime = new Date(appointmentSlot.endTime);
     
-    const title = encodeURIComponent(`QC Kinetix Appointment - ${patientInfo.firstName} ${patientInfo.lastName}`);
+    const title = encodeURIComponent(`Appointment - ${patientInfo.firstName} ${patientInfo.lastName}`);
     const details = encodeURIComponent(`Appointment at ${location.name}\nAddress: ${location.address}`);
     
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&dates=${startTime.toISOString().replace(/-|:|\.\d+/g, '')}/${endTime.toISOString().replace(/-|:|\.\d+/g, '')}`;
@@ -24,7 +24,7 @@ export const CalendarIntegration = ({ appointmentSlot, location, patientInfo }: 
     const startTime = new Date(appointmentSlot.startTime);
     const endTime = new Date(appointmentSlot.endTime);
     
-    const title = encodeURIComponent(`QC Kinetix Appointment - ${patientInfo.firstName} ${patientInfo.lastName}`);
+    const title = encodeURIComponent(`Appointment - ${patientInfo.firstName} ${patientInfo.lastName}`);
     const details = encodeURIComponent(`Appointment at ${location.name}\nAddress: ${location.address}`);
     
     return `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=${title}&body=${details}&startdt=${startTime.toISOString()}&enddt=${endTime.toISOString()}`;

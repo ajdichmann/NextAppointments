@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FormData } from '@/lib/types';
 import { CalendarIntegration } from './CalendarIntegration';
+
+// Declare dataLayer type
+declare global {
+  interface Window {
+    dataLayer?: any[];
+  }
+}
 
 interface ThankYouPageProps {
   formData: FormData;
@@ -8,6 +15,21 @@ interface ThankYouPageProps {
 
 export const ThankYouPage = ({ formData }: ThankYouPageProps) => {
   const { patientInfo, appointmentSlot, selectedLocation } = formData;
+
+  useEffect(() => {
+    // Push appointment scheduled event to data layer
+    window.dataLayer?.push({
+      event: 'appointment_scheduled',
+      appointment_details: {
+        patient_name: `${patientInfo.firstName} ${patientInfo.lastName}`,
+        appointment_date: new Date(appointmentSlot.startTime).toLocaleDateString(),
+        appointment_time: `${formatTime(appointmentSlot.startTime)} - ${formatTime(appointmentSlot.endTime)}`,
+        location_name: selectedLocation?.name,
+        location_address: selectedLocation?.address,
+        patient_email: patientInfo.email
+      }
+    });
+  }, []); // Empty dependency array since we only want to fire this once when component mounts
 
   const formatTime = (dateString: string) => {
     return new Date(dateString).toLocaleTimeString([], {
@@ -41,7 +63,7 @@ export const ThankYouPage = ({ formData }: ThankYouPageProps) => {
           Appointment Scheduled Successfully!
         </h2>
         <p className="mt-2 text-gray-600">
-          Thank you for scheduling your appointment with QC Kinetix.
+          Thank you for scheduling your appointment!
         </p>
       </div>
 

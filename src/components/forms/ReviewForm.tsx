@@ -34,7 +34,7 @@ export function ReviewForm({ formData, onSubmit, onBack, isSubmitting }: ReviewF
           <div>
             <h3 className="text-sm font-medium text-gray-500">Service Type</h3>
             <p className="mt-1 text-sm text-gray-900 capitalize">
-              {formData.serviceType === 'regenerative-medicine' ? 'Regenerative Medicine' : formData.serviceType.replace('-', ' ')}
+              {formData.serviceType.replace('-', ' ')}
             </p>
           </div>
 

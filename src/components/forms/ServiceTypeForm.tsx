@@ -1,14 +1,35 @@
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { Button } from '../common/Button';
 
-export type ServiceType = 'option-1' | 'option-2' | 'option-3' | 'option-4';
+const serviceTypeSchema = z.object({
+  serviceType: z.enum(['option-1', 'option-2', 'option-3', 'option-4'], {
+    required_error: 'Please select a service type',
+  }),
+});
+
+type ServiceTypeFormData = z.infer<typeof serviceTypeSchema>;
+export type ServiceType = z.infer<typeof serviceTypeSchema>['serviceType'];
 
 interface ServiceTypeFormProps {
   onSubmit: (serviceType: ServiceType) => void;
 }
 
 export function ServiceTypeForm({ onSubmit }: ServiceTypeFormProps) {
+  const {
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ServiceTypeFormData>({
+    resolver: zodResolver(serviceTypeSchema),
+  });
+
+  const onSubmitForm = (data: ServiceTypeFormData) => {
+    onSubmit(data.serviceType);
+  };
+
   return (
-    <div className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmitForm)} className="space-y-6">
       <div className="text-center">
         <h2 className="text-2xl font-semibold text-gray-900 mb-2">
           Select Your Option
@@ -18,8 +39,13 @@ export function ServiceTypeForm({ onSubmit }: ServiceTypeFormProps) {
         </p>
       </div>
 
+      {errors.serviceType && (
+        <p className="text-sm text-red-600 text-center">{errors.serviceType.message}</p>
+      )}
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
         <button
+          type="button"
           onClick={() => onSubmit('option-1')}
           className="flex flex-col items-center p-6 border-2 border-gray-200 rounded-lg hover:border-[#159A00] hover:bg-[#159A00]/5 transition-colors duration-200"
         >
@@ -45,6 +71,7 @@ export function ServiceTypeForm({ onSubmit }: ServiceTypeFormProps) {
         </button>
 
         <button
+          type="button"
           onClick={() => onSubmit('option-2')}
           className="flex flex-col items-center p-6 border-2 border-gray-200 rounded-lg hover:border-[#159A00] hover:bg-[#159A00]/5 transition-colors duration-200"
         >
@@ -70,6 +97,7 @@ export function ServiceTypeForm({ onSubmit }: ServiceTypeFormProps) {
         </button>
 
         <button
+          type="button"
           onClick={() => onSubmit('option-3')}
           className="flex flex-col items-center p-6 border-2 border-gray-200 rounded-lg hover:border-[#159A00] hover:bg-[#159A00]/5 transition-colors duration-200"
         >
@@ -95,6 +123,7 @@ export function ServiceTypeForm({ onSubmit }: ServiceTypeFormProps) {
         </button>
 
         <button
+          type="button"
           onClick={() => onSubmit('option-4')}
           className="flex flex-col items-center p-6 border-2 border-gray-200 rounded-lg hover:border-[#159A00] hover:bg-[#159A00]/5 transition-colors duration-200"
         >
@@ -119,6 +148,6 @@ export function ServiceTypeForm({ onSubmit }: ServiceTypeFormProps) {
           </p>
         </button>
       </div>
-    </div>
+    </form>
   );
 } 
