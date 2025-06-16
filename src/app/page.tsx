@@ -6,7 +6,7 @@ import { AppointmentCalendar } from '@/components/forms/AppointmentCalendar';
 import { ReviewForm } from '@/components/forms/ReviewForm';
 import { ServiceTypeForm, ServiceType } from '@/components/forms/ServiceTypeForm';
 import { LocationSelector } from '@/components/forms/LocationSelector';
-import { PatientInfo, AppointmentSlot, Location } from '@/lib/types';
+import { AppointmentSlot, Location } from '@/lib/types';
 import { storage } from '@/lib/storage';
 import { ThankYouPage } from '@/components/forms/ThankYouPage';
 

@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
-    "build:wordpress": "next build && next export && node scripts/build-wordpress.js",
     "start": "next start",
     "lint": "next lint"
   },
