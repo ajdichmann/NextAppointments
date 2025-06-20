@@ -45,7 +45,7 @@ Take your business to the next level with optional upgrades:
 
 See how easy it is to schedule, manage, and grow your business:
 
-[![Watch the demo](https://nextappointments.net/videos/demo.mp4)
+![Watch the demo](https://nextappointments.net/videos/demo.mp4)
 
 ---
 
