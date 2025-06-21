@@ -14,6 +14,41 @@ export function SubmissionsList() {
     setSubmissions(storage.getSubmissions());
   };
 
+  const handleExport = () => {
+    if (submissions.length === 0) return;
+    const headers = [
+      'First Name',
+      'Last Name',
+      'Email',
+      'Phone',
+      'Service Type',
+      'Start Time',
+      'End Time',
+      'Location',
+    ];
+    const rows = submissions.map((s) => [
+      s.patientInfo.firstName,
+      s.patientInfo.lastName,
+      s.patientInfo.email,
+      s.patientInfo.phone,
+      s.serviceType,
+      s.appointmentSlot.startTime,
+      s.appointmentSlot.endTime,
+      s.appointmentSlot.location,
+    ]);
+    const csvContent = [
+      headers.join(','),
+      ...rows.map((r) => r.map((value) => `"${value}"`).join(',')),
+    ].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'appointments.csv');
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString([], {
       weekday: 'long',
@@ -37,15 +72,20 @@ export function SubmissionsList() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-lg font-medium text-gray-900">Stored Submissions</h2>
-        <Button
-          variant="outline"
-          onClick={() => {
-            storage.clearSubmissions();
-            setSubmissions([]);
-          }}
-        >
-          Clear All
-        </Button>
+        <div className="space-x-2">
+          <Button variant="outline" onClick={handleExport}>
+            Export CSV
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => {
+              storage.clearSubmissions();
+              setSubmissions([]);
+            }}
+          >
+            Clear All
+          </Button>
+        </div>
       </div>
 
       <div className="space-y-4">
