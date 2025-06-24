@@ -135,7 +135,7 @@ function generateEmailHTML(emailData: EmailData): string {
       
       <div class="footer">
         <p>This is an automated confirmation email. Please do not reply to this message.</p>
-        <p>If you have any questions, please contact us at {BUSINESS_CONFIG.CONTACT_EMAIL}</p>
+        <p>If you have any questions, please contact us at {BUSINESS_CONFIG.EMAIL_CONFIG.CONTACT_EMAIL}</p>
       </div>
     </body>
     </html>

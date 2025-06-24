@@ -120,10 +120,10 @@ export const ThankYouPage = ({ formData }: ThankYouPageProps) => {
         <p className="mt-2">
           If you need to make any changes, please contact {BUSINESS_CONFIG.BUSINESS_NAME} at{' '}
           <a 
-            href={`mailto:${BUSINESS_CONFIG.CONTACT_EMAIL}`}
+            href={`mailto:${BUSINESS_CONFIG.EMAIL_CONFIG.CONTACT_EMAIL}`}
             className="text-[#159A00] hover:text-[#159A00]/80 transition-colors"
           >
-            {BUSINESS_CONFIG.CONTACT_EMAIL}
+            {BUSINESS_CONFIG.EMAIL_CONFIG.CONTACT_EMAIL}
           </a>
         </p>
       </div>

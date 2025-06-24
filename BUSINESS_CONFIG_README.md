@@ -10,8 +10,13 @@ The main configuration is located in `src/lib/config.ts`. This file contains all
 
 ### Core Business Information
 - `BUSINESS_NAME`: Your business name (used in titles, emails, and UI)
-- `CONTACT_EMAIL`: Your business contact email (used for email sending and contact information)
 - `LOGO_URL`: Path to your business logo (used in the header)
+
+### Email Configuration
+- `EMAIL_CONFIG.FROM_EMAIL`: Email address used as sender for automated emails
+- `EMAIL_CONFIG.REPLY_TO_EMAIL`: Email address for replies to automated emails
+- `EMAIL_CONFIG.SUPPORT_EMAIL`: Email address for support inquiries
+- `EMAIL_CONFIG.CONTACT_EMAIL`: General contact email address
 
 ### Additional Business Information
 - `PHONE`: Business phone number
@@ -29,8 +34,13 @@ The main configuration is located in `src/lib/config.ts`. This file contains all
    ```typescript
    export const BUSINESS_CONFIG = {
      BUSINESS_NAME: 'Your Actual Business Name',
-     CONTACT_EMAIL: 'your-email@yourbusiness.com',
      LOGO_URL: '/your-logo.png', // Place your logo in the public folder
+     EMAIL_CONFIG: {
+       FROM_EMAIL: 'noreply@yourbusiness.com',
+       REPLY_TO_EMAIL: 'contact@yourbusiness.com',
+       SUPPORT_EMAIL: 'support@yourbusiness.com',
+       CONTACT_EMAIL: 'contact@yourbusiness.com',
+     },
      // ... other variables
    } as const;
    ```
