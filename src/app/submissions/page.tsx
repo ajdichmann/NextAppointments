@@ -1,6 +1,7 @@
 'use client';
 
 import { SubmissionsList } from '@/components/forms/SubmissionsList';
+import { BUSINESS_CONFIG } from '@/lib/config';
 
 export default function SubmissionsPage() {
   return (
@@ -8,8 +9,8 @@ export default function SubmissionsPage() {
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-8">
           <img 
-            src="https://placehold.co/325x70?text=Logo" 
-            alt="Logo" 
+            src={BUSINESS_CONFIG.LOGO_URL} 
+            alt={`${BUSINESS_CONFIG.BUSINESS_NAME} Logo`} 
             className="mx-auto mb-6 h-16 w-auto"
           />
           <h1 className="text-3xl font-bold text-gray-900">Scheduled Appointments</h1>
