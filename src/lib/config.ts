@@ -4,7 +4,7 @@ export const BUSINESS_CONFIG = {
   BUSINESS_NAME: 'NextAppointments',
   
   // Assets
-  LOGO_URL: '/logo.png', // Update this path to your actual logo file
+  LOGO_URL: 'https://placehold.co/325x70?text=Logo', // Update this path to your actual logo file
   WEBSITE: 'https://nextappointments.net/',
   
   // Email Configuration
