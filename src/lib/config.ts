@@ -13,6 +13,7 @@ export const BUSINESS_CONFIG = {
     REPLY_TO_EMAIL: 'contact@nextappointments.net',
     SUPPORT_EMAIL: 'support@nextappointments.net',
     CONTACT_EMAIL: 'contact@nextappointments.net',
+    BUSINESS_NOTIFICATION_EMAIL: 'appointments@nextappointments.net', // Email for business notifications
   },
   
   // Social Media (optional)
@@ -34,4 +35,7 @@ export const getContactEmail = (): string => BUSINESS_CONFIG.EMAIL_CONFIG.CONTAC
 export const getLogoUrl = (): string => BUSINESS_CONFIG.LOGO_URL;
 
 // Helper function to get from email
-export const getFromEmail = (): string => BUSINESS_CONFIG.EMAIL_CONFIG.FROM_EMAIL; 
+export const getFromEmail = (): string => BUSINESS_CONFIG.EMAIL_CONFIG.FROM_EMAIL;
+
+// Helper function to get business notification email
+export const getBusinessNotificationEmail = (): string => BUSINESS_CONFIG.EMAIL_CONFIG.BUSINESS_NOTIFICATION_EMAIL; 

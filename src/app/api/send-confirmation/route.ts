@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { sendAppointmentConfirmationEmail, EmailData } from '@/lib/resend';
+import { sendAppointmentConfirmationEmail, sendBusinessNotificationEmail, EmailData, BusinessNotificationData } from '@/lib/resend';
 
 export async function POST(request: NextRequest) {
   try {
@@ -47,8 +47,22 @@ export async function POST(request: NextRequest) {
     // Send the confirmation email
     await sendAppointmentConfirmationEmail(emailData);
 
+    // Send business notification email
+    const businessNotificationData: BusinessNotificationData = {
+      patientName: `${patientInfo.firstName} ${patientInfo.lastName}`,
+      patientEmail: patientInfo.email,
+      patientPhone: patientInfo.phone,
+      appointmentDate: new Date(appointmentSlot.startTime).toLocaleDateString(),
+      appointmentTime: `${formatTime(appointmentSlot.startTime)} - ${formatTime(appointmentSlot.endTime)}`,
+      locationName: selectedLocation.name,
+      locationAddress: selectedLocation.address,
+      serviceType: serviceType || 'Appointment',
+    };
+
+    await sendBusinessNotificationEmail(businessNotificationData);
+
     return NextResponse.json(
-      { message: 'Confirmation email sent successfully' },
+      { message: 'Confirmation email and business notification sent successfully' },
       { status: 200 }
     );
   } catch (error) {
