@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import { BUSINESS_CONFIG } from './config';
 
 // Initialize Resend with API key from environment variable
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -16,9 +17,9 @@ export interface EmailData {
 export async function sendAppointmentConfirmationEmail(emailData: EmailData) {
   try {
     const { data, error } = await resend.emails.send({
-      from: process.env.FROM_EMAIL || 'noreply@yourdomain.com',
+      from: BUSINESS_CONFIG.CONTACT_EMAIL,
       to: [emailData.to],
-      subject: 'Appointment Confirmation - Your Appointment Has Been Scheduled',
+      subject: `Appointment Confirmation - ${BUSINESS_CONFIG.BUSINESS_NAME}`,
       html: generateEmailHTML(emailData),
     });
 
@@ -128,12 +129,12 @@ function generateEmailHTML(emailData: EmailData): string {
         
         <p>If you have any questions or need to make changes to your appointment, please don't hesitate to contact us.</p>
         
-        <p>Best regards,<br>The Healthcare Team</p>
+        <p>Best regards,<br>The {BUSINESS_CONFIG.BUSINESS_NAME} Team</p>
       </div>
       
       <div class="footer">
         <p>This is an automated confirmation email. Please do not reply to this message.</p>
-        <p>If you have any questions, please contact us directly.</p>
+        <p>If you have any questions, please contact us at {BUSINESS_CONFIG.CONTACT_EMAIL}</p>
       </div>
     </body>
     </html>

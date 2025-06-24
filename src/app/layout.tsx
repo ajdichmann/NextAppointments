@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { BUSINESS_CONFIG } from "@/lib/config";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,8 +12,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "NextAppointments - Online Appointment Scheduler App Demo",
-  description: "Schedule your appointment online",
+  title: `${BUSINESS_CONFIG.BUSINESS_NAME} - Online Appointment Scheduler`,
+  description: `Schedule your appointment online with ${BUSINESS_CONFIG.BUSINESS_NAME}`,
 };
 
 export default function RootLayout({
