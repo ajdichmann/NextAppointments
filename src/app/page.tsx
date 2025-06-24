@@ -9,6 +9,7 @@ import { LocationSelector } from '@/components/forms/LocationSelector';
 import { AppointmentSlot, Location } from '@/lib/types';
 import { storage } from '@/lib/storage';
 import { ThankYouPage } from '@/components/forms/ThankYouPage';
+import { BUSINESS_CONFIG } from '@/lib/config';
 
 type FormData = {
   serviceType: ServiceType;
@@ -67,11 +68,31 @@ export default function AppointmentScheduler() {
     setError(null);
 
     try {
-      // Save to local storage only
+      // Save to local storage
       const storedSubmission = storage.saveSubmission(formData);
+      
+      // Send confirmation email
+      const emailResponse = await fetch('/api/send-confirmation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          patientInfo: formData.patientInfo,
+          appointmentSlot: formData.appointmentSlot,
+          selectedLocation: formData.selectedLocation,
+          serviceType: formData.serviceType,
+        }),
+      });
+
+      if (!emailResponse.ok) {
+        console.warn('Failed to send confirmation email, but appointment was saved locally');
+        // Don't throw error here - appointment is still saved locally
+      }
+
       setStep(6);
     } catch (err: any) {
-      setError('Failed to save appointment locally.');
+      setError('Failed to save appointment. Please try again.');
       console.error('Error saving appointment:', err);
     } finally {
       setIsSubmitting(false);
@@ -87,13 +108,13 @@ export default function AppointmentScheduler() {
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-8">
           <img 
-            src="https://placehold.co/325x70?text=Logo" 
-            alt="Logo" 
+            src={BUSINESS_CONFIG.LOGO_URL} 
+            alt={`${BUSINESS_CONFIG.BUSINESS_NAME} Logo`} 
             className="mx-auto mb-6 h-16 w-auto"
           />
           <h1 className="text-3xl font-bold text-gray-900">Schedule an Appointment Online!</h1>
           <p className="mt-2 text-sm text-gray-600">
-            Please fill out the form below to schedule your appointment.
+            Please fill out the form below to schedule your appointment with {BUSINESS_CONFIG.BUSINESS_NAME}.
           </p>
         </div>
 
