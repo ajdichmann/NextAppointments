@@ -17,10 +17,11 @@ export interface EmailData {
 export async function sendAppointmentConfirmationEmail(emailData: EmailData) {
   try {
     const { data, error } = await resend.emails.send({
-      from: BUSINESS_CONFIG.CONTACT_EMAIL,
+      from: BUSINESS_CONFIG.EMAIL_CONFIG.FROM_EMAIL,
       to: [emailData.to],
       subject: `Appointment Confirmation - ${BUSINESS_CONFIG.BUSINESS_NAME}`,
       html: generateEmailHTML(emailData),
+      replyTo: BUSINESS_CONFIG.EMAIL_CONFIG.REPLY_TO_EMAIL,
     });
 
     if (error) {

@@ -19,27 +19,41 @@ This guide explains how to set up the Resend email integration for appointment c
 
 ### 2. Configure Environment Variables
 
-1. Copy the `.env.local` file in the root directory
-2. Replace `your_resend_api_key_here` with your actual Resend API key
-3. Update the `FROM_EMAIL` to use your verified domain (e.g., `noreply@yourdomain.com`)
+1. Create a `.env.local` file in the root directory
+2. Add your Resend API key to the environment variables
 
 Example `.env.local`:
 ```
 # Resend API Configuration
 RESEND_API_KEY=re_1234567890abcdef...
-
-# Email Configuration
-FROM_EMAIL=noreply@yourdomain.com
 ```
 
-### 3. Verify Your Domain in Resend
+### 3. Configure Email Settings in Config File
+
+Update the email configuration in `src/lib/config.ts`:
+
+```typescript
+export const BUSINESS_CONFIG = {
+  // ... other config
+  EMAIL_CONFIG: {
+    FROM_EMAIL: 'noreply@yourdomain.com', // Use your verified domain
+    REPLY_TO_EMAIL: 'contact@yourdomain.com',
+    SUPPORT_EMAIL: 'support@yourdomain.com',
+  },
+  // ... other config
+} as const;
+```
+
+**Important**: The `FROM_EMAIL` must match your verified domain in Resend.
+
+### 4. Verify Your Domain in Resend
 
 1. In your Resend dashboard, go to Domains
 2. Add and verify your domain
 3. Follow the DNS configuration instructions provided by Resend
 4. Wait for domain verification (usually takes a few minutes)
 
-### 4. Test the Integration
+### 5. Test the Integration
 
 1. Start your development server: `npm run dev`
 2. Complete the appointment booking process
@@ -49,7 +63,7 @@ FROM_EMAIL=noreply@yourdomain.com
 
 - **Professional Email Template**: Beautiful HTML email with appointment details
 - **Error Handling**: Graceful fallback if email sending fails
-- **Environment Configuration**: Secure API key management
+- **Centralized Configuration**: Email settings managed in config file
 - **Type Safety**: Full TypeScript support
 
 ## Email Template
@@ -64,10 +78,10 @@ The confirmation email includes:
 ## Troubleshooting
 
 ### Email Not Sending
-1. Check that your Resend API key is correct
+1. Check that your Resend API key is correct in `.env.local`
 2. Verify your domain is properly configured in Resend
-3. Check the browser console for any error messages
-4. Verify the `FROM_EMAIL` matches your verified domain
+3. Check that the `FROM_EMAIL` in config matches your verified domain
+4. Check the browser console for any error messages
 
 ### Email Going to Spam
 1. Ensure your domain has proper SPF and DKIM records
@@ -83,4 +97,5 @@ The confirmation email includes:
 
 - Never commit your `.env.local` file to version control
 - The API key is only used server-side and never exposed to the client
-- All email sending is handled through secure API calls 
+- All email sending is handled through secure API calls
+- Email configuration is centralized in the config file for easy management 
