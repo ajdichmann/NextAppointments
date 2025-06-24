@@ -67,11 +67,31 @@ export default function AppointmentScheduler() {
     setError(null);
 
     try {
-      // Save to local storage only
+      // Save to local storage
       const storedSubmission = storage.saveSubmission(formData);
+      
+      // Send confirmation email
+      const emailResponse = await fetch('/api/send-confirmation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          patientInfo: formData.patientInfo,
+          appointmentSlot: formData.appointmentSlot,
+          selectedLocation: formData.selectedLocation,
+          serviceType: formData.serviceType,
+        }),
+      });
+
+      if (!emailResponse.ok) {
+        console.warn('Failed to send confirmation email, but appointment was saved locally');
+        // Don't throw error here - appointment is still saved locally
+      }
+
       setStep(6);
     } catch (err: any) {
-      setError('Failed to save appointment locally.');
+      setError('Failed to save appointment. Please try again.');
       console.error('Error saving appointment:', err);
     } finally {
       setIsSubmitting(false);

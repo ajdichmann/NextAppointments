@@ -115,6 +115,7 @@ export const ThankYouPage = ({ formData }: ThankYouPageProps) => {
 
       <div className="mt-8 text-sm text-gray-500">
         <p>A confirmation email has been sent to {patientInfo.email}</p>
+        <p className="mt-2">Please check your inbox (and spam folder) for the confirmation email.</p>
         <p className="mt-2">If you need to make any changes, please contact us directly.</p>
       </div>
     </div>
