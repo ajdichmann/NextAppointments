@@ -1,7 +1,6 @@
 'use client';
 
 import Script from 'next/script';
-import { useEffect } from 'react';
 import { BUSINESS_CONFIG } from '@/lib/config';
 
 interface GoogleTagManagerProps {
@@ -11,24 +10,6 @@ interface GoogleTagManagerProps {
 export default function GoogleTagManager({ 
   containerId = BUSINESS_CONFIG.GTM.CONTAINER_ID 
 }: GoogleTagManagerProps) {
-  // Initialize dataLayer
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      // Initialize dataLayer if it doesn't exist
-      if (!window.dataLayer) {
-        window.dataLayer = [];
-      }
-      
-      window.gtag = function() {
-        window.dataLayer?.push(arguments);
-      };
-      
-      // Initialize gtag
-      window.gtag?.('js', new Date());
-      window.gtag?.('config', containerId);
-    }
-  }, [containerId]);
-
   // Don't render if GTM is disabled
   if (!BUSINESS_CONFIG.GTM.ENABLED) {
     return null;
@@ -62,29 +43,4 @@ export default function GoogleTagManager({
       />
     </>
   );
-}
-
-// Helper function to push events to dataLayer
-export const pushToDataLayer = (event: string, data?: any) => {
-  if (typeof window !== 'undefined' && window.dataLayer) {
-    window.dataLayer.push({
-      event,
-      ...data,
-    });
-  }
-};
-
-// Helper function to track page views
-export const trackPageView = (url: string) => {
-  if (typeof window !== 'undefined' && window.dataLayer) {
-    pushToDataLayer('page_view', {
-      page_location: url,
-      page_title: document.title,
-    });
-  }
-};
-
-// Helper function to track custom events
-export const trackEvent = (eventName: string, parameters?: Record<string, any>) => {
-  pushToDataLayer(eventName, parameters);
-}; 
+} 
