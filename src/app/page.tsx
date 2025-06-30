@@ -83,21 +83,21 @@ export default function AppointmentScheduler() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="bg-gray-50 py-6 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-8">
+        <div className="text-center mb-6">
           <img 
             src="https://placehold.co/325x70?text=Logo" 
             alt="Logo" 
-            className="mx-auto mb-6 h-16 w-auto"
+            className="mx-auto mb-4 h-12 w-auto"
           />
-          <h1 className="text-3xl font-bold text-gray-900">Schedule an Appointment Online!</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Schedule an Appointment Online!</h1>
           <p className="mt-2 text-sm text-gray-600">
             Please fill out the form below to schedule your appointment.
           </p>
         </div>
 
-        <div className="bg-white shadow rounded-lg p-6">
+        <div className="bg-white shadow rounded-lg p-4 sm:p-6">
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-md">
               <p className="text-sm text-red-600">{error}</p>
