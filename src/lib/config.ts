@@ -16,6 +16,12 @@ export const BUSINESS_CONFIG = {
     BUSINESS_NOTIFICATION_EMAIL: 'appointments@nextappointments.net', // Email for business notifications
   },
   
+  // Google Tag Manager Configuration
+  GTM: {
+    CONTAINER_ID: process.env.NEXT_PUBLIC_GTM_CONTAINER_ID || 'GTM-XXXXXXX',
+    ENABLED: process.env.NODE_ENV === 'production' || process.env.NEXT_PUBLIC_GTM_ENABLED === 'true',
+  },
+  
   // Social Media (optional)
   FACEBOOK: 'https://facebook.com/yourbusiness',
   INSTAGRAM: 'https://instagram.com/yourbusiness',

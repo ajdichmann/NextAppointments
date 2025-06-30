@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PatientInfoForm } from '@/components/forms/PatientInfoForm';
 import { AppointmentCalendar } from '@/components/forms/AppointmentCalendar';
 import { ReviewForm } from '@/components/forms/ReviewForm';
@@ -10,6 +10,7 @@ import { AppointmentSlot, Location } from '@/lib/types';
 import { storage } from '@/lib/storage';
 import { ThankYouPage } from '@/components/forms/ThankYouPage';
 import { BUSINESS_CONFIG } from '@/lib/config';
+import { trackPageView } from '@/components/common/GoogleTagManager';
 
 type FormData = {
   serviceType: ServiceType;
@@ -40,6 +41,11 @@ export default function AppointmentScheduler() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Track page view on component mount
+  useEffect(() => {
+    trackPageView(window.location.pathname);
+  }, []);
 
   const handleServiceTypeSubmit = (serviceType: ServiceType) => {
     setFormData((prev) => ({ ...prev, serviceType }));

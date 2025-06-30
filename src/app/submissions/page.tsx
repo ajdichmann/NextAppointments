@@ -1,9 +1,16 @@
 'use client';
 
+import { useEffect } from 'react';
 import { SubmissionsList } from '@/components/forms/SubmissionsList';
 import { BUSINESS_CONFIG } from '@/lib/config';
+import { trackPageView } from '@/components/common/GoogleTagManager';
 
 export default function SubmissionsPage() {
+  // Track page view on component mount
+  useEffect(() => {
+    trackPageView(window.location.pathname);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
